@@ -89,7 +89,6 @@ class FullScreenDialog extends StatelessWidget {
                   iconController: iconController,
                   iconPack: iconPackMode,
                   customIconPack: customIconPack,
-                  searchIcon: searchIcon,
                   searchClearIcon: searchClearIcon,
                   searchHintText: searchHintText,
                   backgroundColor: backgroundColor,

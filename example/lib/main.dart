@@ -7,7 +7,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final notifier = await IconNotifier.init();
 
-  runApp(FlutterIconPickerExample(
-    notifier: notifier,
-  ));
+  runApp(
+    FlutterIconPickerExample(
+      notifier: notifier,
+    ),
+  );
 }

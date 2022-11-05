@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class HomeScreen2 extends StatefulWidget {
   const HomeScreen2({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -14,7 +14,7 @@ class HomeScreen2 extends StatefulWidget {
 }
 
 class _HomeScreen2State extends State<HomeScreen2> {
-  IconNotifier notifier;
+  IconNotifier? notifier;
 
   bool isAdaptive = true;
   bool showTooltips = false;
@@ -27,7 +27,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
   }
 
   _pickIcon() async {
-    IconData icon = await FlutterIconPicker.showIconPicker(
+    IconData? icon = await FlutterIconPicker.showIconPicker(
       context,
       adaptiveDialog: isAdaptive,
       showTooltips: showTooltips,
@@ -38,7 +38,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
     );
 
     if (icon != null) {
-      notifier.iconData = icon;
+      notifier?.iconData = icon;
       setState(() {});
 
       debugPrint(
@@ -53,17 +53,17 @@ class _HomeScreen2State extends State<HomeScreen2> {
         title: const Text('Multiple Pickers'),
         actions: [
           IconButton(
-            icon: Icon(notifier.brightness.icon),
+            icon: Icon(notifier?.brightness.icon),
             onPressed: () {
-              switch (notifier.brightness.mode) {
+              switch (notifier?.brightness.mode) {
                 case ThemeMode.dark:
-                  notifier.brightness = AppBrightness.light;
+                  notifier?.brightness = AppBrightness.light;
                   break;
                 case ThemeMode.light:
-                  notifier.brightness = AppBrightness.system;
+                  notifier?.brightness = AppBrightness.system;
                   break;
                 case ThemeMode.system:
-                  notifier.brightness = AppBrightness.dark;
+                  notifier?.brightness = AppBrightness.dark;
                   break;
                 default:
                   break;
@@ -84,31 +84,31 @@ class _HomeScreen2State extends State<HomeScreen2> {
               children: [
                 ElevatedButton(
                   onPressed: _pickIcon,
-                  child: Text(notifier.iconData != null
+                  child: Text(notifier?.iconData != null
                       ? 'Change Icon'
                       : 'Open IconPicker'),
                 ),
-                if (notifier.iconData != null)
+                if (notifier?.iconData != null)
                   ElevatedButton(
-                    onPressed: () => setState(() => notifier.iconData = null),
+                    onPressed: () => setState(() => notifier?.iconData = null),
                     child: const Text('Clear Icon'),
                   ),
               ],
             ),
             const SizedBox(height: 10),
             Consumer<IconNotifier>(
-              builder: (BuildContext ctx, dynamic d, Widget w) =>
+              builder: (BuildContext? ctx, dynamic d, Widget? w) =>
                   AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
-                child: notifier.iconData != null
+                child: notifier?.iconData != null
                     ? Column(
                         children: [
-                          Icon(notifier.iconData),
+                          Icon(notifier?.iconData),
                           const SizedBox(
                             height: 15,
                           ),
                           Text(
-                            'Database Entry:\n${serializeIcon(notifier.iconData).toString()}',
+                            'Database Entry:\n${serializeIcon(notifier!.iconData!).toString()}',
                           ),
                         ],
                       )

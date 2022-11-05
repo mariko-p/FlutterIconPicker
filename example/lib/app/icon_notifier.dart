@@ -8,20 +8,20 @@ import 'app_brightness.dart';
 
 class IconNotifier extends ChangeNotifier {
   IconNotifier._(
-    IconData iconData,
+    IconData? iconData,
     AppBrightness brightness,
   )   : _iconData = iconData,
         _brightness = brightness;
 
-  static Box box;
+  static Box? box;
 
-  IconData _iconData;
+  IconData? _iconData;
 
   AppBrightness _brightness;
 
-  IconData get iconData => _iconData;
+  IconData? get iconData => _iconData;
 
-  set iconData(IconData value) {
+  set iconData(IconData? value) {
     if (_iconData == value) {
       return;
     }
@@ -29,12 +29,12 @@ class IconNotifier extends ChangeNotifier {
     _iconData = value;
 
     if (value == null) {
-      box.delete('iconData');
+      box?.delete('iconData');
       notifyListeners();
       return;
     }
 
-    box.put('iconData', serializeIcon(_iconData));
+    box?.put('iconData', serializeIcon(_iconData!));
     notifyListeners();
   }
 
@@ -45,7 +45,7 @@ class IconNotifier extends ChangeNotifier {
       return;
     }
     _brightness = value;
-    box.put('app.brightness', _brightness.value);
+    box?.put('app.brightness', _brightness.value);
     notifyListeners();
   }
 
@@ -64,11 +64,11 @@ class IconNotifier extends ChangeNotifier {
       box = Hive.box('FLIPBox');
     }
 
-    final iconData = await box.get('iconData') != null
-        ? deserializeIcon(Map<String, dynamic>.from(await box.get('iconData')))
+    final iconData = await box?.get('iconData') != null
+        ? deserializeIcon(Map<String, dynamic>.from(await box?.get('iconData')))
         : null;
 
-    final brightness = AppBrightness.from(await box.get('app.brightness'));
+    final brightness = AppBrightness.from(await box?.get('app.brightness'));
 
     return IconNotifier._(
       iconData,

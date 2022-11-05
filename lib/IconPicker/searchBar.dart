@@ -15,10 +15,10 @@ class SearchBar extends StatefulWidget {
     required this.iconController,
     required this.iconPack,
     required this.searchHintText,
-    required this.searchIcon,
     required this.searchClearIcon,
     required this.backgroundColor,
     this.customIconPack,
+    this.iconColor,
     Key? key,
   }) : super(key: key);
 
@@ -26,9 +26,9 @@ class SearchBar extends StatefulWidget {
   final List<IconPack>? iconPack;
   final Map<String, IconData>? customIconPack;
   final String? searchHintText;
-  final Icon? searchIcon;
   final Icon? searchClearIcon;
   final Color? backgroundColor;
+  final Color? iconColor;
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -66,42 +66,60 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Consumer<IconController>(builder: (ctx, controller, _) {
-      return TextField(
-        onChanged: (val) => _search(val),
-        controller: controller.searchTextController,
-        style: TextStyle(
-          color: ColorBrightness(widget.backgroundColor!).isLight()
-              ? Colors.black
-              : Colors.white,
-        ),
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(top: 15),
-          hintStyle: TextStyle(
+      return SizedBox(
+        height: 32,
+        child: TextField(
+          onChanged: (val) => _search(val),
+          controller: controller.searchTextController,
+          textAlign: TextAlign.justify,
+          textAlignVertical: TextAlignVertical.center,
+          style: TextStyle(
             color: ColorBrightness(widget.backgroundColor!).isLight()
-                ? Colors.black54
-                : Colors.white54,
+                ? Colors.black
+                : Colors.white,
           ),
-          hintText: widget.searchHintText,
-          prefixIcon: widget.searchIcon,
-          suffixIcon: AnimatedSwitcher(
-            child: controller.searchTextController.text.isNotEmpty
-                ? IconButton(
-                    icon: widget.searchClearIcon!,
-                    onPressed: () => setState(() {
-                      controller.searchTextController.clear();
-                      if (widget.customIconPack != null)
-                        controller.addAll(widget.customIconPack ?? {});
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            filled: true,
+            fillColor: Color.alphaBlend(
+              Color(0xf4ffffff),
+              Color(0xff2979FF),
+            ),
+            isDense: true,
+            contentPadding: const EdgeInsets.only(left: 15, top: 5, bottom: 5),
+            hintStyle: TextStyle(
+              color: ColorBrightness(widget.backgroundColor!).isLight()
+                  ? Colors.black54
+                  : Colors.white54,
+              fontSize: 14,
+            ),
+            hintText: widget.searchHintText,
+            suffixIcon: AnimatedSwitcher(
+              child: controller.searchTextController.text.isNotEmpty
+                  ? IconButton(
+                      color: widget.iconColor,
+                      icon: widget.searchClearIcon!,
+                      onPressed: () => setState(() {
+                        controller.searchTextController.clear();
+                        if (widget.customIconPack != null)
+                          controller.addAll(widget.customIconPack ?? {});
 
-                      if (widget.iconPack != null)
-                        for (var pack in widget.iconPack!) {
-                          controller.addAll(IconManager.getSelectedPack(pack));
-                        }
-                    }),
-                  )
-                : const SizedBox(
-                    width: 10,
-                  ),
-            duration: const Duration(milliseconds: 300),
+                        if (widget.iconPack != null)
+                          for (var pack in widget.iconPack!) {
+                            controller.addAll(
+                              IconManager.getSelectedPack(pack),
+                            );
+                          }
+                      }),
+                    )
+                  : const SizedBox(
+                      width: 10,
+                    ),
+              duration: const Duration(milliseconds: 300),
+            ),
           ),
         ),
       );

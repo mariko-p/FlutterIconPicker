@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_iconpicker/controllers/icon_controller.dart';
 import 'package:fluttericonpickerexample/app/icon_notifier.dart';
 import 'package:fluttericonpickerexample/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
 class FlutterIconPickerExample extends StatefulWidget {
   const FlutterIconPickerExample({
-    Key key,
-    this.notifier,
+    Key? key,
+    required this.notifier,
   }) : super(key: key);
 
   final IconNotifier notifier;
@@ -21,16 +22,21 @@ class _FlutterIconPickerExampleState extends State<FlutterIconPickerExample> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: widget.notifier,
-      builder: (BuildContext ctx, Widget w) => Consumer<IconNotifier>(
-        builder: (BuildContext iconCtx, dynamic d, Widget iconW) => MaterialApp(
-          home: const HomeScreen(),
-          debugShowCheckedModeBanner: false,
-          themeMode: widget.notifier.brightness.mode,
-          darkTheme: ThemeData(brightness: Brightness.dark),
-          theme: ThemeData(brightness: Brightness.light),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => widget.notifier,
         ),
+        ChangeNotifierProvider(
+          create: (context) => IconController(),
+        ),
+      ],
+      child: MaterialApp(
+        home: const HomeScreen(),
+        debugShowCheckedModeBanner: false,
+        themeMode: widget.notifier.brightness.mode,
+        darkTheme: ThemeData(brightness: Brightness.dark),
+        theme: ThemeData(brightness: Brightness.light),
       ),
     );
   }
