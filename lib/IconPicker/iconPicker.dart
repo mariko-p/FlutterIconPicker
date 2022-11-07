@@ -117,84 +117,72 @@ class _IconPickerState extends State<IconPicker> {
             _getListEmptyMsg()
           else
             Positioned.fill(
-              child: ListView(
-                children: <Widget>[
-                  SizedBox(
-                    height: 15,
-                  ),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: controller.length,
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      childAspectRatio: 1 / 1,
-                      maxCrossAxisExtent: 75,
-                    ),
-                    itemBuilder: (context, index) {
-                      var item = controller.entries.elementAt(index);
+              child: GridView.builder(
+                itemCount: controller.length,
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  childAspectRatio: 1 / 1,
+                  maxCrossAxisExtent: 75,
+                ),
+                itemBuilder: (context, index) {
+                  var item = controller.entries.elementAt(index);
 
-                      return Material(
-                        color: Colors.white,
-                        child: InkWell(
-                          customBorder: new CircleBorder(),
-                          onTap: () {
-                            if (selectedIconKey == item.key) {
-                              widget.onTap?.call(null);
-                            } else {
-                              widget.onTap?.call(item.key);
-                            }
+                  return Material(
+                    color: Colors.white,
+                    child: InkWell(
+                      customBorder: new CircleBorder(),
+                      onTap: () {
+                        if (selectedIconKey == item.key) {
+                          widget.onTap?.call(null);
+                        } else {
+                          widget.onTap?.call(item.key);
+                        }
 
-                            setState(() {
-                              if (selectedIconKey == item.key) {
-                                selectedIconKey = null;
-                              } else {
-                                selectedIconKey = item.key;
-                              }
-                              isEdited = true;
-                            });
-                          },
+                        setState(() {
+                          if (selectedIconKey == item.key) {
+                            selectedIconKey = null;
+                          } else {
+                            selectedIconKey = item.key;
+                          }
+                          isEdited = true;
+                        });
+                      },
+                      child: Center(
+                        child: Container(
+                          decoration: isItemSelected(item.key)
+                              ? BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Color(0xff05AD56),
+                                    style: BorderStyle.solid,
+                                  ),
+                                )
+                              : null,
+                          width: 30,
+                          height: 30,
                           child: Center(
-                            child: Container(
-                              decoration: isItemSelected(item.key)
-                                  ? BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(20),
-                                      ),
-                                      border: Border.all(
-                                        width: 1,
-                                        color: Color(0xff05AD56),
-                                        style: BorderStyle.solid,
-                                      ),
-                                    )
-                                  : null,
-                              width: 30,
-                              height: 30,
-                              child: Center(
-                                child: widget.showTooltips!
-                                    ? Tooltip(
-                                        message: item.key,
-                                        child: Icon(
-                                          item.value,
-                                          size: widget.iconSize,
-                                          color: widget.iconColor,
-                                        ),
-                                      )
-                                    : Icon(
-                                        item.value,
-                                        size: widget.iconSize,
-                                        color: widget.iconColor,
-                                      ),
-                              ),
-                            ),
+                            child: widget.showTooltips!
+                                ? Tooltip(
+                                    message: item.key,
+                                    child: Icon(
+                                      item.value,
+                                      size: widget.iconSize,
+                                      color: widget.iconColor,
+                                    ),
+                                  )
+                                : Icon(
+                                    item.value,
+                                    size: widget.iconSize,
+                                    color: widget.iconColor,
+                                  ),
                           ),
                         ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                ],
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           IgnorePointer(

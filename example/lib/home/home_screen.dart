@@ -41,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ChangeNotifierProvider.value(
         value: controller,
         builder: (ctx, w) {
-          print("builder");
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       backgroundColor: Colors.white,
                       selectedIconKey: selectedIconKey,
                       onTap: (String? iconKey) {
-                        print("Selected ${iconKey}");
                         setState(
                           () {
                             if (selectedIconKey != null &&
