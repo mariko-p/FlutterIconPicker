@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconpicker/controllers/icon_controller.dart';
 import 'package:fluttericonpickerexample/app/icon_notifier.dart';
 import 'package:fluttericonpickerexample/home/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -26,9 +25,6 @@ class _FlutterIconPickerExampleState extends State<FlutterIconPickerExample> {
       providers: [
         ChangeNotifierProvider(
           create: (context) => widget.notifier,
-        ),
-        ChangeNotifierProvider(
-          create: (context) => IconController(),
         ),
       ],
       child: MaterialApp(

@@ -43,44 +43,43 @@ class _IconPickerWithSearchState extends State<IconPickerWithSearch> {
   IconData? selectedIcon;
   bool isEdited = false;
 
-  late IconController iconController;
-
-  @override
-  void initState() {
-    super.initState();
-    iconController = Provider.of<IconController>(context, listen: false);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: widget.backgroundColor,
-      child: Column(
-        children: <Widget>[
-          SearchBar(
-            iconController: iconController,
-            iconPack: widget.iconPackMode,
-            customIconPack: widget.customIconPack,
-            searchClearIcon: widget.searchClearIcon,
-            iconColor: widget.searchClearIconColor,
-            searchHintText: widget.searchHintText,
-            backgroundColor: widget.backgroundColor,
-          ),
-          Expanded(
-            child: IconPicker(
-              iconController: iconController,
-              showTooltips: widget.showTooltips,
-              iconPack: widget.iconPackMode,
-              customIconPack: widget.customIconPack,
-              iconColor: widget.iconColor,
-              backgroundColor: widget.backgroundColor,
-              noResultsText: widget.noResultsText,
-              iconSize: widget.iconSize,
-              selectedIconKey: widget.selectedIconKey,
-              onTap: widget.onTap,
+    return ChangeNotifierProvider<IconController>(
+      create: (context) => IconController(),
+      child: Consumer<IconController>(
+        builder: (context, iconController, consumerWidget) {
+          return Container(
+            color: widget.backgroundColor,
+            child: Column(
+              children: <Widget>[
+                SearchBar(
+                  iconController: iconController,
+                  iconPack: widget.iconPackMode,
+                  customIconPack: widget.customIconPack,
+                  searchClearIcon: widget.searchClearIcon,
+                  iconColor: widget.searchClearIconColor,
+                  searchHintText: widget.searchHintText,
+                  backgroundColor: widget.backgroundColor,
+                ),
+                Expanded(
+                  child: IconPicker(
+                    iconController: iconController,
+                    showTooltips: widget.showTooltips,
+                    iconPack: widget.iconPackMode,
+                    customIconPack: widget.customIconPack,
+                    iconColor: widget.iconColor,
+                    backgroundColor: widget.backgroundColor,
+                    noResultsText: widget.noResultsText,
+                    iconSize: widget.iconSize,
+                    selectedIconKey: widget.selectedIconKey,
+                    onTap: widget.onTap,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
