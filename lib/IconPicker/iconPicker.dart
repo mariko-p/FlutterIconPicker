@@ -118,6 +118,7 @@ class _IconPickerState extends State<IconPicker> {
           else
             Positioned.fill(
               child: GridView.builder(
+                physics: BouncingScrollPhysics(),
                 itemCount: controller.length,
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   childAspectRatio: 1 / 1,
