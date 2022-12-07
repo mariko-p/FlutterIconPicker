@@ -40,14 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   iconColor: Colors.black,
                   backgroundColor: Colors.white,
                   selectedIconKey: selectedIconKey,
-                  onTap: (String? iconKey) {
+                  onTap: (String? iconName, int? iconCodePoint) {
                     setState(
                       () {
                         if (selectedIconKey != null &&
-                            selectedIconKey == iconKey) {
+                            selectedIconKey == iconName) {
                           selectedIconKey = null;
                         } else {
-                          selectedIconKey = iconKey;
+                          selectedIconKey = iconName;
                         }
                       },
                     );

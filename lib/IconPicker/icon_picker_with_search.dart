@@ -33,7 +33,7 @@ class IconPickerWithSearch extends StatefulWidget {
   final Color? iconColor;
   final Color? searchClearIconColor;
   final String? selectedIconKey;
-  final Function(String?)? onTap;
+  final Function(String?, int?)? onTap;
 
   @override
   _IconPickerWithSearchState createState() => _IconPickerWithSearchState();

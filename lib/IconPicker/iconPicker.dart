@@ -22,7 +22,7 @@ class IconPicker extends StatefulWidget {
   final Color? backgroundColor;
   final bool? showTooltips;
   final String? selectedIconKey;
-  final Function(String?)? onTap;
+  final Function(String?, int?)? onTap;
 
   const IconPicker({
     Key? key,
@@ -133,9 +133,9 @@ class _IconPickerState extends State<IconPicker> {
                       customBorder: new CircleBorder(),
                       onTap: () {
                         if (selectedIconKey == item.key) {
-                          widget.onTap?.call(null);
+                          widget.onTap?.call(null, null);
                         } else {
-                          widget.onTap?.call(item.key);
+                          widget.onTap?.call(item.key, item.value.codePoint);
                         }
 
                         setState(() {
