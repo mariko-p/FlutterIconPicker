@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   iconPackMode: [
                     IconPack.material,
                   ],
+                  iconSize: 20,
                   searchClearIconColor: Colors.black,
                   iconColor: Colors.black,
                   backgroundColor: Colors.white,

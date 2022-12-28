@@ -14,7 +14,7 @@ class IconPicker extends StatefulWidget {
   final IconController iconController;
   final List<IconPack>? iconPack;
   final Map<String, IconData>? customIconPack;
-  final double? iconSize;
+  final double iconSize;
   final Color? iconColor;
   final String? noResultsText;
   final double? mainAxisSpacing;
@@ -22,6 +22,7 @@ class IconPicker extends StatefulWidget {
   final Color? backgroundColor;
   final bool? showTooltips;
   final String? selectedIconKey;
+  final double borderPadding;
   final Function(String?, int?)? onTap;
 
   const IconPicker({
@@ -38,6 +39,7 @@ class IconPicker extends StatefulWidget {
     this.customIconPack,
     this.selectedIconKey,
     this.onTap,
+    this.borderPadding = 5.0,
   }) : super(key: key);
 
   @override
@@ -152,7 +154,7 @@ class _IconPickerState extends State<IconPicker> {
                           decoration: isItemSelected(item.key)
                               ? BoxDecoration(
                                   borderRadius: BorderRadius.all(
-                                    Radius.circular(20),
+                                    Radius.circular(widget.iconSize),
                                   ),
                                   border: Border.all(
                                     width: 1,
@@ -161,8 +163,8 @@ class _IconPickerState extends State<IconPicker> {
                                   ),
                                 )
                               : null,
-                          width: 30,
-                          height: 30,
+                          width: widget.iconSize + 2 * widget.borderPadding,
+                          height: widget.iconSize + 2 * widget.borderPadding,
                           child: Center(
                             child: widget.showTooltips!
                                 ? Tooltip(

@@ -37,7 +37,7 @@ class FullScreenDialog extends StatelessWidget {
   final String? searchHintText;
   final Color? iconColor;
   final String? noResultsText;
-  final double? iconSize;
+  final double iconSize;
   final double? mainAxisSpacing;
   final double? crossAxisSpacing;
 

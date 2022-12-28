@@ -26,7 +26,7 @@ class IconPickerWithSearch extends StatefulWidget {
   final Icon? searchClearIcon;
   final String? searchHintText;
   final String? noResultsText;
-  final double? iconSize;
+  final double iconSize;
   final Color? backgroundColor;
   final List<IconPack>? iconPackMode;
   final Map<String, IconData>? customIconPack;
