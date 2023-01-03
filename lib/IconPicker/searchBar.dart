@@ -104,6 +104,7 @@ class _SearchBarState extends State<SearchBar> {
                       icon: widget.searchClearIcon!,
                       onPressed: () => setState(() {
                         controller.searchTextController.clear();
+                        widget.iconController.removeAll();
                         if (widget.customIconPack != null)
                           controller.addAll(widget.customIconPack ?? {});
 
