@@ -45,12 +45,14 @@ class IconPicker extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _IconPickerState createState() => _IconPickerState();
+  _IconPickerState createState() => _IconPickerState(selectedIconKey);
 }
 
 class _IconPickerState extends State<IconPicker> {
   String? selectedIconKey;
   bool isEdited = false;
+
+  _IconPickerState(this.selectedIconKey);
 
   @override
   void initState() {
