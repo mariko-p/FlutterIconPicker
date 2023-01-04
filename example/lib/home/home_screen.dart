@@ -53,6 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     );
                   },
+                  filterFunction: (key, iconData) =>
+                      !key.endsWith("_sharp") &&
+                      !key.endsWith("_rounded") &&
+                      !key.endsWith("_outlined"),
                 ),
               ),
             ),

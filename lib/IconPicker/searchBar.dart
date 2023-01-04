@@ -19,6 +19,7 @@ class SearchBar extends StatefulWidget {
     required this.backgroundColor,
     this.customIconPack,
     this.iconColor,
+    this.filterFunction,
     Key? key,
   }) : super(key: key);
 
@@ -29,6 +30,7 @@ class SearchBar extends StatefulWidget {
   final Icon? searchClearIcon;
   final Color? backgroundColor;
   final Color? iconColor;
+  final FilterFunction? filterFunction;
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -39,7 +41,10 @@ class _SearchBarState extends State<SearchBar> {
     Map<String, IconData> searchResult = Map<String, IconData>();
 
     for (var pack in widget.iconPack!) {
-      IconManager.getSelectedPack(pack).forEach((String key, IconData val) {
+      IconManager.getSelectedPack(
+        pickedPack: pack,
+        filterFunction: widget.filterFunction,
+      ).forEach((String key, IconData val) {
         if (key.toLowerCase().contains(searchValue.toLowerCase())) {
           searchResult.putIfAbsent(key, () => val);
         }
@@ -111,7 +116,10 @@ class _SearchBarState extends State<SearchBar> {
                         if (widget.iconPack != null)
                           for (var pack in widget.iconPack!) {
                             controller.addAll(
-                              IconManager.getSelectedPack(pack),
+                              IconManager.getSelectedPack(
+                                pickedPack: pack,
+                                filterFunction: widget.filterFunction,
+                              ),
                             );
                           }
                       }),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/controllers/icon_controller.dart';
 import 'package:provider/provider.dart';
 import 'iconPicker.dart';
+import 'icons.dart';
 import 'searchBar.dart';
 import '../Models/IconPack.dart';
 
@@ -14,6 +15,7 @@ class IconPickerWithSearch extends StatefulWidget {
     this.searchClearIcon = const Icon(Icons.close),
     this.searchHintText = 'Search icon by name',
     this.customIconPack,
+    this.filterFunction,
     required this.searchClearIconColor,
     required this.backgroundColor,
     required this.iconPackMode,
@@ -34,6 +36,7 @@ class IconPickerWithSearch extends StatefulWidget {
   final Color? searchClearIconColor;
   final String? selectedIconKey;
   final Function(String?, int?)? onTap;
+  final FilterFunction? filterFunction;
 
   @override
   _IconPickerWithSearchState createState() => _IconPickerWithSearchState();
@@ -61,6 +64,7 @@ class _IconPickerWithSearchState extends State<IconPickerWithSearch> {
                   iconColor: widget.searchClearIconColor,
                   searchHintText: widget.searchHintText,
                   backgroundColor: widget.backgroundColor,
+                  filterFunction: widget.filterFunction,
                 ),
                 Expanded(
                   child: IconPicker(
@@ -74,6 +78,7 @@ class _IconPickerWithSearchState extends State<IconPickerWithSearch> {
                     iconSize: widget.iconSize,
                     selectedIconKey: widget.selectedIconKey,
                     onTap: widget.onTap,
+                    filterFunction: widget.filterFunction,
                   ),
                 ),
               ],

@@ -24,6 +24,7 @@ class IconPicker extends StatefulWidget {
   final String? selectedIconKey;
   final double borderPadding;
   final Function(String?, int?)? onTap;
+  final FilterFunction? filterFunction;
 
   const IconPicker({
     Key? key,
@@ -39,6 +40,7 @@ class IconPicker extends StatefulWidget {
     this.customIconPack,
     this.selectedIconKey,
     this.onTap,
+    this.filterFunction,
     this.borderPadding = 5.0,
   }) : super(key: key);
 
@@ -61,7 +63,10 @@ class _IconPickerState extends State<IconPicker> {
       if (widget.iconPack != null)
         for (var pack in widget.iconPack!) {
           if (mounted)
-            widget.iconController.addAll(IconManager.getSelectedPack(pack));
+            widget.iconController.addAll(IconManager.getSelectedPack(
+              pickedPack: pack,
+              filterFunction: widget.filterFunction,
+            ));
         }
     });
   }
