@@ -25,6 +25,7 @@ class IconPicker extends StatefulWidget {
   final double borderPadding;
   final Function(String?, int?)? onTap;
   final FilterFunction? filterFunction;
+  final int? crossAxisCount;
 
   const IconPicker({
     Key? key,
@@ -41,6 +42,7 @@ class IconPicker extends StatefulWidget {
     this.selectedIconKey,
     this.onTap,
     this.filterFunction,
+    this.crossAxisCount,
     this.borderPadding = 5.0,
   }) : super(key: key);
 
@@ -129,10 +131,15 @@ class _IconPickerState extends State<IconPicker> {
               child: GridView.builder(
                 physics: BouncingScrollPhysics(),
                 itemCount: controller.length,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  childAspectRatio: 1 / 1,
-                  maxCrossAxisExtent: 75,
-                ),
+                gridDelegate: widget.crossAxisCount != null
+                    ? SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: widget.crossAxisCount!,
+                        mainAxisExtent: 75,
+                      )
+                    : SliverGridDelegateWithMaxCrossAxisExtent(
+                        childAspectRatio: 1 / 1,
+                        maxCrossAxisExtent: 75,
+                      ),
                 itemBuilder: (context, index) {
                   var item = controller.entries.elementAt(index);
 

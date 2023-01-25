@@ -16,6 +16,7 @@ class IconPickerWithSearch extends StatefulWidget {
     this.searchHintText = 'Search icon by name',
     this.customIconPack,
     this.filterFunction,
+    this.crossAxisCount,
     required this.searchClearIconColor,
     required this.backgroundColor,
     required this.iconPackMode,
@@ -37,6 +38,7 @@ class IconPickerWithSearch extends StatefulWidget {
   final String? selectedIconKey;
   final Function(String?, int?)? onTap;
   final FilterFunction? filterFunction;
+  final int? crossAxisCount;
 
   @override
   _IconPickerWithSearchState createState() => _IconPickerWithSearchState();
@@ -79,6 +81,7 @@ class _IconPickerWithSearchState extends State<IconPickerWithSearch> {
                     selectedIconKey: widget.selectedIconKey,
                     onTap: widget.onTap,
                     filterFunction: widget.filterFunction,
+                    crossAxisCount: widget.crossAxisCount,
                   ),
                 ),
               ],

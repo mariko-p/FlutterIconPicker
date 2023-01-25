@@ -57,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       !key.endsWith("_sharp") &&
                       !key.endsWith("_rounded") &&
                       !key.endsWith("_outlined"),
+                  crossAxisCount: 5,
                 ),
               ),
             ),
