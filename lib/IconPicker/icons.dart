@@ -17,17 +17,29 @@ import 'Packs/LineIcons.dart';
 
 import 'package:flutter/widgets.dart';
 
+typedef FilterFunction = bool Function(
+  String key,
+  IconData iconData,
+);
+
 class IconManager {
-  static Map<String, IconData> getSelectedPack(IconPack? pickedPack) {
+  static Map<String, IconData> getSelectedPack({
+    required IconPack? pickedPack,
+    FilterFunction? filterFunction,
+  }) {
     switch (pickedPack) {
       case IconPack.material:
-        return icons;
+        return Map.fromEntries(icons.entries.where((element) =>
+            filterFunction?.call(element.key, element.value) ?? true));
       case IconPack.cupertino:
-        return cupertinoIcons;
+        return Map.fromEntries(cupertinoIcons.entries.where((element) =>
+            filterFunction?.call(element.key, element.value) ?? true));
       case IconPack.fontAwesomeIcons:
-        return fontAwesomeIcons;
+        return Map.fromEntries(fontAwesomeIcons.entries.where((element) =>
+            filterFunction?.call(element.key, element.value) ?? true));
       case IconPack.lineAwesomeIcons:
-        return lineAwesomeIcons;
+        return Map.fromEntries(lineAwesomeIcons.entries.where((element) =>
+            filterFunction?.call(element.key, element.value) ?? true));
       default:
         return <String, IconData>{};
     }

@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   iconPackMode: [
                     IconPack.material,
                   ],
+                  iconSize: 20,
                   searchClearIconColor: Colors.black,
                   iconColor: Colors.black,
                   backgroundColor: Colors.white,
@@ -52,6 +53,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     );
                   },
+                  filterFunction: (key, iconData) =>
+                      !key.endsWith("_sharp") &&
+                      !key.endsWith("_rounded") &&
+                      !key.endsWith("_outlined"),
+                  crossAxisCount: 5,
                 ),
               ),
             ),

@@ -17,7 +17,7 @@ class DefaultDialog extends StatelessWidget {
     this.adaptive = false,
     this.showTooltips,
     this.barrierDismissible,
-    this.iconSize,
+    this.iconSize = 20,
     this.iconColor,
     this.mainAxisSpacing,
     this.crossAxisSpacing,
@@ -40,7 +40,7 @@ class DefaultDialog extends StatelessWidget {
   final bool adaptive;
   final bool? showTooltips;
   final bool? barrierDismissible;
-  final double? iconSize;
+  final double iconSize;
   final Color? iconColor;
   final double? mainAxisSpacing;
   final double? crossAxisSpacing;

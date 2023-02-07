@@ -14,7 +14,7 @@ class IconPicker extends StatefulWidget {
   final IconController iconController;
   final List<IconPack>? iconPack;
   final Map<String, IconData>? customIconPack;
-  final double? iconSize;
+  final double iconSize;
   final Color? iconColor;
   final String? noResultsText;
   final double? mainAxisSpacing;
@@ -22,7 +22,10 @@ class IconPicker extends StatefulWidget {
   final Color? backgroundColor;
   final bool? showTooltips;
   final String? selectedIconKey;
+  final double borderPadding;
   final Function(String?, int?)? onTap;
+  final FilterFunction? filterFunction;
+  final int? crossAxisCount;
 
   const IconPicker({
     Key? key,
@@ -38,15 +41,20 @@ class IconPicker extends StatefulWidget {
     this.customIconPack,
     this.selectedIconKey,
     this.onTap,
+    this.filterFunction,
+    this.crossAxisCount,
+    this.borderPadding = 5.0,
   }) : super(key: key);
 
   @override
-  _IconPickerState createState() => _IconPickerState();
+  _IconPickerState createState() => _IconPickerState(selectedIconKey);
 }
 
 class _IconPickerState extends State<IconPicker> {
   String? selectedIconKey;
   bool isEdited = false;
+
+  _IconPickerState(this.selectedIconKey);
 
   @override
   void initState() {
@@ -59,7 +67,10 @@ class _IconPickerState extends State<IconPicker> {
       if (widget.iconPack != null)
         for (var pack in widget.iconPack!) {
           if (mounted)
-            widget.iconController.addAll(IconManager.getSelectedPack(pack));
+            widget.iconController.addAll(IconManager.getSelectedPack(
+              pickedPack: pack,
+              filterFunction: widget.filterFunction,
+            ));
         }
     });
   }
@@ -120,10 +131,15 @@ class _IconPickerState extends State<IconPicker> {
               child: GridView.builder(
                 physics: BouncingScrollPhysics(),
                 itemCount: controller.length,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  childAspectRatio: 1 / 1,
-                  maxCrossAxisExtent: 75,
-                ),
+                gridDelegate: widget.crossAxisCount != null
+                    ? SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: widget.crossAxisCount!,
+                        mainAxisExtent: 75,
+                      )
+                    : SliverGridDelegateWithMaxCrossAxisExtent(
+                        childAspectRatio: 1 / 1,
+                        maxCrossAxisExtent: 75,
+                      ),
                 itemBuilder: (context, index) {
                   var item = controller.entries.elementAt(index);
 
@@ -152,7 +168,7 @@ class _IconPickerState extends State<IconPicker> {
                           decoration: isItemSelected(item.key)
                               ? BoxDecoration(
                                   borderRadius: BorderRadius.all(
-                                    Radius.circular(20),
+                                    Radius.circular(widget.iconSize),
                                   ),
                                   border: Border.all(
                                     width: 1,
@@ -161,8 +177,8 @@ class _IconPickerState extends State<IconPicker> {
                                   ),
                                 )
                               : null,
-                          width: 30,
-                          height: 30,
+                          width: widget.iconSize + 2 * widget.borderPadding,
+                          height: widget.iconSize + 2 * widget.borderPadding,
                           child: Center(
                             child: widget.showTooltips!
                                 ? Tooltip(
