@@ -70,7 +70,7 @@ class _IconPickerState extends State<IconPicker> {
             widget.iconController.addAll(IconManager.getSelectedPack(
               pickedPack: pack,
               filterFunction: widget.filterFunction,
-            ));
+            ).map((key, value) => MapEntry(key, value.iconData)));
         }
     });
   }

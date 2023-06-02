@@ -9,6 +9,8 @@ import 'package:flutter_iconpicker/IconPicker/Packs/Material.dart' as Material;
 
 import 'package:flutter_iconpicker/Models/IconPack.dart';
 
+import '../IconPicker/Packs/Material.dart';
+
 Map<String, dynamic>? serializeIcon(IconData icon, {IconPack? iconPack}) {
   if (iconPack == null) {
     if (icon.fontFamily == "MaterialIcons")
@@ -26,7 +28,7 @@ Map<String, dynamic>? serializeIcon(IconData icon, {IconPack? iconPack}) {
     case IconPack.material:
       return {
         'pack': "material",
-        'key': _getIconKey(Material.icons, icon),
+        'key': _getIconKeyMaterial(Material.icons, icon),
       };
     case IconPack.cupertino:
       return {
@@ -64,7 +66,7 @@ IconData? deserializeIcon(Map<String, dynamic> iconMap) {
     final iconKey = iconMap['key'];
     switch (pack) {
       case "material":
-        return Material.icons[iconKey];
+        return Material.icons[iconKey]!.iconData;
       case "cupertino":
         return Cupertino.cupertinoIcons[iconKey];
       case "fontAwesomeIcons":
@@ -89,3 +91,6 @@ IconData? deserializeIcon(Map<String, dynamic> iconMap) {
 
 String _getIconKey(Map<String, IconData> icons, IconData icon) =>
     icons.entries.firstWhere((iconEntry) => iconEntry.value == icon).key;
+
+String _getIconKeyMaterial(Map<String, IconDataWithSearchTags> icons, IconData icon) =>
+    icons.entries.firstWhere((iconEntry) => iconEntry.value.iconData == icon).key;

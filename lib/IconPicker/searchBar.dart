@@ -17,6 +17,7 @@ class SearchBar extends StatefulWidget {
     required this.searchHintText,
     required this.searchClearIcon,
     required this.backgroundColor,
+    this.languageCode,
     this.customIconPack,
     this.iconColor,
     this.filterFunction,
@@ -31,6 +32,7 @@ class SearchBar extends StatefulWidget {
   final Color? backgroundColor;
   final Color? iconColor;
   final FilterFunction? filterFunction;
+  final String? languageCode;
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -44,9 +46,12 @@ class _SearchBarState extends State<SearchBar> {
       IconManager.getSelectedPack(
         pickedPack: pack,
         filterFunction: widget.filterFunction,
-      ).forEach((String key, IconData val) {
-        if (key.toLowerCase().contains(searchValue.toLowerCase())) {
-          searchResult.putIfAbsent(key, () => val);
+      ).forEach((String key, IconDataWithSearchTags val) {
+        if (val.searchTags[widget.languageCode]!
+            .where((searchTag) =>
+                searchTag.toLowerCase().contains(searchValue.toLowerCase()))
+            .isNotEmpty) {
+          searchResult.putIfAbsent(key, () => val.iconData);
         }
       });
     }
@@ -119,7 +124,7 @@ class _SearchBarState extends State<SearchBar> {
                               IconManager.getSelectedPack(
                                 pickedPack: pack,
                                 filterFunction: widget.filterFunction,
-                              ),
+                              ).map((key, value) => MapEntry(key, value.iconData)),
                             );
                           }
                       }),

@@ -10,10 +10,8 @@ class IconPickerWithSearch extends StatefulWidget {
   const IconPickerWithSearch({
     Key? key,
     this.showTooltips = true,
-    this.noResultsText = 'No results for:',
     this.iconSize = 20,
     this.searchClearIcon = const Icon(Icons.close),
-    this.searchHintText = 'Search icon by name',
     this.customIconPack,
     this.filterFunction,
     this.crossAxisCount,
@@ -23,12 +21,15 @@ class IconPickerWithSearch extends StatefulWidget {
     required this.iconColor,
     required this.selectedIconKey,
     required this.onTap,
+    required this.languageCode,
+    required this.noResultsText,
+    required this.searchHintText,
   }) : super(key: key);
 
   final bool? showTooltips;
   final Icon? searchClearIcon;
-  final String? searchHintText;
-  final String? noResultsText;
+  final String searchHintText;
+  final String noResultsText;
   final double iconSize;
   final Color? backgroundColor;
   final List<IconPack>? iconPackMode;
@@ -39,6 +40,7 @@ class IconPickerWithSearch extends StatefulWidget {
   final Function(String?, int?)? onTap;
   final FilterFunction? filterFunction;
   final int? crossAxisCount;
+  final String languageCode;
 
   @override
   _IconPickerWithSearchState createState() => _IconPickerWithSearchState();
@@ -67,6 +69,7 @@ class _IconPickerWithSearchState extends State<IconPickerWithSearch> {
                   searchHintText: widget.searchHintText,
                   backgroundColor: widget.backgroundColor,
                   filterFunction: widget.filterFunction,
+                  languageCode: widget.languageCode,
                 ),
                 Expanded(
                   child: IconPicker(

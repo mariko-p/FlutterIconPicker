@@ -53,11 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     );
                   },
-                  filterFunction: (key, iconData) =>
+                  filterFunction: (key, iconDataWithSearchTags) =>
                       !key.endsWith("_sharp") &&
                       !key.endsWith("_rounded") &&
                       !key.endsWith("_outlined"),
                   crossAxisCount: 5,
+                  languageCode: 'en',
+                  noResultsText: 'No results for: ',
+                  searchHintText: 'Search icon by name',
                 ),
               ),
             ),
