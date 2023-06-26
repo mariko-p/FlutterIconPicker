@@ -3,7 +3,7 @@ import 'package:flutter_iconpicker/controllers/icon_controller.dart';
 import 'package:provider/provider.dart';
 import 'iconPicker.dart';
 import 'icons.dart';
-import 'searchBar.dart';
+import 'searchBar.dart' as IconPickerSearchBar;
 import '../Models/IconPack.dart';
 
 class IconPickerWithSearch extends StatefulWidget {
@@ -60,7 +60,7 @@ class _IconPickerWithSearchState extends State<IconPickerWithSearch> {
             color: widget.backgroundColor,
             child: Column(
               children: <Widget>[
-                SearchBar(
+                IconPickerSearchBar.SearchBar(
                   iconController: iconController,
                   iconPack: widget.iconPackMode,
                   customIconPack: widget.customIconPack,
